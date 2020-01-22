@@ -2,8 +2,10 @@ $principal-color: #ffea81;
 //#ffcda0
 $secondary-color: #fff;
 $form-color: rgb(242, 234, 245);
+$text-color: rgba(0, 0, 0, 0.8);
 $title-font: 'Archivo Black';
 $principal-font: 'Open Sans', sans-serif;
+$secondary-font: 'Montserrat', sans-serif;
 @mixin flex-column {
     display: flex;
     flex-direction: column;
@@ -25,7 +27,6 @@ $principal-font: 'Open Sans', sans-serif;
     position: fixed;
     top: 0;
     text-align: center;
-
     &-img {
         width: 100vw;
         height: 250px;
@@ -57,19 +58,54 @@ $principal-font: 'Open Sans', sans-serif;
     position: absolute;
     padding-top: 50px;
 }
+label {
+    width: 450px;
+}
 .search-group {
-    &-bar {
-        width: 40vw;
-        height: 30px;
-        border-radius: 25px;
-        padding-left: 15px;
-        color: #000;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 2px solid $form-color;
-        &:hover {
-            border: 2px solid darken($form-color, 8%);
+    &-dropdown {
+        position: relative;
+        display: inline-block;
+        &:hover .search-group-dropdown-content {
+            display: block;
+        }
+        &-btn {
+            width: 500px;
+            height: 35px;
+            border-radius: 25px;
+            padding-left: 15px;
+            color: #000;
+            text-align: left;
+            font-family: $secondary-font;
+            color: darken($form-color, 20%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid $form-color;
+            &:hover {
+                border: 2px solid darken($form-color, 8%);
+            }
+        }
+        &-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            width: 500px;
+            height: 250px;
+            border: 1px solid $form-color;
+            z-index: 1;
+            overflow: scroll;
+            .character {
+                font-family: $secondary-font;
+                color: black;
+                padding: 10px 16px;
+                text-decoration: none;
+                display: block;
+            }
+            .character:hover {
+                background-color: $principal-color;
+                color: #fff;
+            }
         }
     }
+
     &-button {
         height: 35px;
         width: 100px;
@@ -82,5 +118,21 @@ $principal-font: 'Open Sans', sans-serif;
         &:hover {
             background-color: darken($form-color, 5%);
         }
+    }
+}
+
+.movie-list {
+    width: 550px;
+    margin: 0;
+    padding: 0;
+    &-title {
+        font-family: $principal-font;
+        font-size: 24px;
+        color: $principal-color;
+    }
+    &-ul {
+        list-style: none;
+        font-family: $secondary-font;
+        color: $text-color;
     }
 }
