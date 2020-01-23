@@ -17,46 +17,55 @@ const loadData = () => {
 
 const createList = () => {
     names.sort();
-    let i = 0;
-    names.forEach(n => {
-        i++
-        document.querySelector('.search-group-dropdown-content').innerHTML += names
-            .map(n => `<li class="character"><input id="input${i}" type="checkbox" name="checkbox-character"><label for="input${i}">${n}</label></li>`)
-            .join('');
-    });
+    document.querySelector('.search-group-dropdown-content').innerHTML += names
+        .map((n, i) => `<li class="character"><input id="input${i}" type="checkbox" name="checkbox-character"><label for="input${i}">${n}</label></li>`)
+        .join('');
 };
 
 const namesSelected = () => {
+    document.querySelector('.movie-list-li').innerHTML = ``;
+    characters = [];
     let checkboxes = document.getElementsByName('checkbox-character');
     checkboxes.forEach(c => {
         if (c.checked) {
-            characters.push(document.querySelector('.character').innerText);
+            characters.push(c.parentNode.innerText);
         }
     });
-
-    // characters.push(document.querySelector('.character').innerText);
     console.log(characters);
     createMovieList();
-    //searchMovie();
+    searchMovie();
 };
 
 const searchMovie = () => {
     results.forEach(r => {
-        if (characters == r.name) {
+        if (characters.indexOf(r.name) >= 0) {
             films.push(r.films);
         }
     });
-    films.forEach(f => {
-        axios.get(f).then(response => {
-            const titles = response.data;
-            filmsTitles = titles.title;
-        });
+    let filmsReduce = films.flat().reduce((acum, f) => {
+        if (acum[f]) {
+            acum[f]++;
+        } else {
+            acum[f] = 1;
+        }
+        return acum;
+    }, {});
+    console.log(filmsReduce);
+    films.flat().forEach(f => {
+        if (filmsReduce[f] > 1) {
+            axios.get(f).then(response => {
+                document.querySelector('.movie-list-ul').innerHTML = `<ul class="movie-list-ul"></ul>`;
+                const titles = response.data;
+                filmsTitles = titles.title;
+                console.log(filmsTitles);
+                document.querySelector('.movie-list-li').innerHTML += `<li class="movie-list-li">${titles.title}</li>`;
+            });
+        }
     });
-    console.log(filmsTitles);
 };
 
 const createMovieList = () => {
-    document.querySelector('.movie-list').innerHTML = `<h3 class="movie-list-title">Películas</h3>
+    document.querySelector('.movie-list-title').innerHTML = `<h3 class="movie-list-title">Movies</h3>
     <ul class="movie-list-ul">
     </ul>`;
 };
