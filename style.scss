@@ -133,7 +133,7 @@ label {
                 text-decoration: none;
                 display: block;
                 &-selected {
-                    background-color: $principal-color;
+                    background-color: darken($form-color, 10%);
                     color: #fff;
                 }
             }
