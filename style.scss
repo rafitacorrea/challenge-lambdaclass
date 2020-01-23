@@ -1,5 +1,4 @@
 $principal-color: #ffea81;
-//#ffcda0
 $secondary-color: #fff;
 $form-color: rgb(242, 234, 245);
 $text-color: rgba(0, 0, 0, 0.6);
@@ -22,6 +21,9 @@ $secondary-font: 'Montserrat', sans-serif;
     background-color: #fff;
     @include flex-column;
 }
+
+//HEADER
+
 .header {
     @include flex-column;
     position: fixed;
@@ -58,9 +60,37 @@ $secondary-font: 'Montserrat', sans-serif;
     position: absolute;
     padding-top: 50px;
 }
-label {
-    width: 450px;
+
+//HEADER MOBILE
+@media (max-width: 600px) {
+    .header {
+        &-img {
+            width: 100vw;
+            height: 150px;
+        }
+        &-gradient {
+            width: 100vw;
+            height: 150px;
+        }
+    }
+    .title {
+        font-size: 32px;
+    }
+    .subtitle {
+        width: 80vw;
+    }
 }
+
+//SEARCH
+
+.input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
 .search-group {
     &-dropdown {
         position: relative;
@@ -89,7 +119,7 @@ label {
             background-color: #fff;
             width: 500px;
             height: 250px;
-            border: 1px solid $form-color;
+
             z-index: 1;
             overflow: scroll;
             .character {
@@ -98,6 +128,10 @@ label {
                 padding: 10px 16px;
                 text-decoration: none;
                 display: block;
+                &-selected {
+                    background-color: $principal-color;
+                    color: #fff;
+                }
             }
             .character:hover {
                 background-color: $principal-color;
@@ -121,6 +155,19 @@ label {
     }
 }
 
+// SEARCH MOBILE
+@media (max-width: 600px) {
+    .search-group-dropdown {
+        &-btn {
+            width: 200px;
+        }
+        &-content {
+            width: 200px;
+        }
+    }
+}
+
+//MOVIE LIST
 .movie-list {
     width: 570px;
     position: fixed;
@@ -135,5 +182,15 @@ label {
         font-family: $secondary-font;
         color: $text-color;
         margin-top: 20px;
+    }
+}
+
+//MOVIELIST MOBILE
+
+@media (max-width: 600px) {
+    .movie-list {
+        width: 250px;
+        position: fixed;
+        top: 300px;
     }
 }
